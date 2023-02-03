@@ -70,12 +70,12 @@ extension UInt: EncodableToHex { }
 
 extension Data: EncodableToHex {
     public var hexString: String {
-        toHexString()
+        toHexString().addHexPrefix()
     }
 }
 
 extension Date: EncodableToHex {
     public var hexString: String {
-        "0x" + String(UInt(timeIntervalSince1970), radix: 16)
+        String(UInt(timeIntervalSince1970), radix: 16).addHexPrefix()
     }
 }
