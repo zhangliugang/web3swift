@@ -14,7 +14,7 @@ public extension ENS {
         public let web3: Web3
         public let registryContractAddress: EthereumAddress?
 
-        public init?(web3: Web3) {
+        public init?(web3: Web3, customContract: [BigUInt: EthereumAddress]) {
             self.web3 = web3
             switch web3.provider.network {
             case .Mainnet?:
@@ -23,6 +23,12 @@ public extension ENS {
                 registryContractAddress = EthereumAddress("0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e")
             case .Ropsten?:
                 registryContractAddress = EthereumAddress("0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e")
+            case .Custom(networkID: let chanId):
+                if let custom = customContract[chanId] {
+                    registryContractAddress = custom
+                } else {
+                    return nil
+                }
             default:
                 let url = web3.provider.url.absoluteString
                 if url.contains("https://rpc.goerli.mudit.blog")
