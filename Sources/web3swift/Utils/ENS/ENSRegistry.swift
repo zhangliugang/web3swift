@@ -14,7 +14,7 @@ public extension ENS {
         public let web3: Web3
         public let registryContractAddress: EthereumAddress?
 
-        public init?(web3: Web3, customContract: [BigUInt: EthereumAddress]) {
+        public init?(web3: Web3, customContract: [BigUInt: EthereumAddress] = [:]) {
             self.web3 = web3
             switch web3.provider.network {
             case .Mainnet?:
